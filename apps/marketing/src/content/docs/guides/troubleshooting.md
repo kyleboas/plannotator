@@ -72,6 +72,19 @@ If the UI doesn't open automatically, check:
 - **Wrong browser?** Set `PLANNOTATOR_BROWSER` to the app name or path, or use `--browser` for a one-off override.
 - **URL still works** — even if the browser didn't open, the server is running. Check `plannotator sessions` for the URL and open it manually.
 
+## Tailscale URL says the server can't be found
+
+If a tailnet URL works on the host but Safari on an iPhone says “the server can’t be found,” another DNS profile may be overriding Tailscale's MagicDNS resolver. The Tailscale app can still show **Connected** when this happens.
+
+On the iPhone:
+
+1. Open **Settings → General → VPN, DNS & Device Management → DNS**.
+2. Select **Automatic** instead of Mullvad Encrypted DNS, NextDNS, AdGuard, or another custom resolver.
+3. Disconnect and reconnect Tailscale.
+4. Retry the exact HTTPS URL printed by Plannotator.
+
+You do not need to delete the custom DNS profile. Keep DNS set to **Automatic** while using the tailnet URL. If no custom resolver is active, force-quit Safari and Tailscale, reconnect, and test on both Wi-Fi and cellular.
+
 ## Hook doesn't fire
 
 If `ExitPlanMode` doesn't trigger Plannotator:

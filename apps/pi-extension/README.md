@@ -276,6 +276,14 @@ URL targets work too. A loopback `http` URL that answers with an HTML page (a ru
 
 Run `/plannotator-last` to annotate the agent's most recent response. The message opens in the annotation UI where you can highlight text, add comments, and send structured feedback back to the agent.
 
+### Tailscale access
+
+Run `/plannotator-tailscale` once to publish new Plannotator browser sessions privately through `tailscale serve`. Reviews stay bound to loopback, and Plannotator prints an HTTPS URL that another device on the same tailnet can open. This works in an already-running Pi session; no restart or environment variables are needed.
+
+Use `/plannotator-tailscale off` to stop publishing new sessions. Existing reviews remain available until they close, then their serve mappings are removed.
+
+If an iPhone shows “Safari can’t open the page because the server can’t be found,” check for a third-party encrypted DNS profile. Mullvad Encrypted DNS, NextDNS, AdGuard, and similar profiles can override Tailscale's MagicDNS resolver even while Tailscale says it is connected. In **Settings → General → VPN, DNS & Device Management → DNS**, select **Automatic**, reconnect Tailscale, and retry the printed URL. The DNS profile does not need to be deleted; leave DNS on Automatic while opening tailnet URLs.
+
 ### Archive browser
 
 The Plannotator archive browser is available through the shared event API as `archive`, which opens the saved plan/decision browser for future callers. The orchestrator does not expose a dedicated archive command yet.
@@ -292,6 +300,7 @@ During execution, the agent marks completed steps with `[DONE:n]` markers. Progr
 | `/plannotator-review` | Open code review UI for current changes |
 | `/plannotator-annotate <file>` | Open markdown file in annotation UI |
 | `/plannotator-last` | Annotate the last assistant message |
+| `/plannotator-tailscale [on\|off\|status]` | Enable private tailnet URLs for new browser sessions without restarting Pi |
 
 ## Flags
 
